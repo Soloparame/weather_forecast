@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-Here is a well-structured and detailed **README.md** file that you can use for your Flutter Weather Forecast app:
-
 ---
 
 # Weather Forecast App 🌤️
