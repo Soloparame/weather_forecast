@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../bloc/weather_bloc.dart';
 import '../bloc/weather_state.dart';
 import '../bloc/weather_event.dart';
-import 'weather_details_screen.dart';  // Import WeatherDetailsScreen
+import 'weather_details_screen.dart';  
 
 class WeatherScreen extends StatelessWidget {
   final TextEditingController _controller = TextEditingController();
