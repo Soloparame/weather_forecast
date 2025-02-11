@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'dart:async'; // For the delay
+import 'dart:async'; 
 
-import 'weather_screen.dart';  // Import the WeatherScreen to navigate after splash
+import 'weather_screen.dart';  
 
 class LandingPage extends StatelessWidget {
   @override
