@@ -68,102 +68,86 @@ class WeatherScreen extends StatelessWidget {
             ),
             SizedBox(height: 30),
             // BlocBuilder to listen to weather state
-            BlocBuilder<WeatherBloc, WeatherState>(
-              builder: (context, state) {
-                if (state is WeatherLoading) {
-                  return CircularProgressIndicator();
-                } else if (state is WeatherLoaded) {
-                  final weatherModel = state.weatherModel;
-                  return GestureDetector(
-                    onTap: () {
-                      // Navigate to WeatherDetailsScreen when tapped
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => WeatherDetailsScreen(weatherModel: weatherModel),
-                        ),
-                      );
-                    },
-                    child: Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      color: Colors.white.withOpacity(0.9),
-                      elevation: 6,
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Location: ${weatherModel.cityName}, ${weatherModel.country}',
-                              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+            Expanded( // Wrap this part in Expanded to avoid overflow issues
+              child: BlocBuilder<WeatherBloc, WeatherState>(
+                builder: (context, state) {
+                  if (state is WeatherLoading) {
+                    return Center(child: CircularProgressIndicator());
+                  } else if (state is WeatherLoaded) {
+                    final weatherModel = state.weatherModel;
+                    return GestureDetector(
+                      onTap: () {
+                        // Navigate to WeatherDetailsScreen when tapped
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => WeatherDetailsScreen(weatherModel: weatherModel),
+                          ),
+                        );
+                      },
+                      child: ListView(
+                        shrinkWrap: true, 
+                        children: [
+                          ListTile(
+                            contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                            leading: Icon(Icons.location_on, color: Colors.deepPurple, size: 30),
+                            title: Text(
+                              '${weatherModel.cityName}, ${weatherModel.country}',
+                              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                             ),
-                            SizedBox(height: 15),
-                            Row(
-                              children: [
-                                Icon(Icons.thermostat_outlined, color: Colors.deepPurple),
-                                SizedBox(width: 10),
-                                Text(
-                                  'Temperature: ${weatherModel.temperature}°C',
-                                  style: TextStyle(fontSize: 18),
-                                ),
-                              ],
+                          ),
+                          Divider(),
+                          ListTile(
+                            leading: Icon(Icons.thermostat_outlined, color: Colors.deepPurple),
+                            title: Text(
+                              'Temperature: ${weatherModel.temperature}°C',
+                              style: TextStyle(fontSize: 18),
                             ),
-                            SizedBox(height: 10),
-                            Row(
-                              children: [
-                                Icon(Icons.cloud, color: Colors.deepPurple),
-                                SizedBox(width: 10),
-                                Text(
-                                  'Weather: ${weatherModel.description}',
-                                  style: TextStyle(fontSize: 18),
-                                ),
-                              ],
+                          ),
+                          ListTile(
+                            leading: Icon(Icons.cloud, color: Colors.deepPurple),
+                            title: Text(
+                              'Weather: ${weatherModel.description}',
+                              style: TextStyle(fontSize: 18),
                             ),
-                            SizedBox(height: 10),
-                            Row(
-                              children: [
-                                Icon(Icons.air, color: Colors.deepPurple),
-                                SizedBox(width: 10),
-                                Text(
-                                  'Wind Speed: ${weatherModel.windSpeed} m/s',
-                                  style: TextStyle(fontSize: 18),
-                                ),
-                              ],
+                          ),
+                          ListTile(
+                            leading: Icon(Icons.air, color: Colors.deepPurple),
+                            title: Text(
+                              'Wind Speed: ${weatherModel.windSpeed} m/s',
+                              style: TextStyle(fontSize: 18),
                             ),
-                            SizedBox(height: 20),
-                            // "See More" Button to navigate to WeatherDetailsScreen
-                            ElevatedButton(
-                              onPressed: () {
-                                // Navigate to WeatherDetailsScreen when tapped
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => WeatherDetailsScreen(weatherModel: weatherModel),
-                                  ),
-                                );
-                              },
-                              child: Text('See More Details 🧐'),
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: const Color.fromARGB(255, 176, 145, 230),
-                                padding: EdgeInsets.symmetric(vertical: 15, horizontal: 50),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12),
+                          ),
+                          SizedBox(height: 20),
+                          ElevatedButton(
+                            onPressed: () {
+                              // Navigate to WeatherDetailsScreen when tapped
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => WeatherDetailsScreen(weatherModel: weatherModel),
                                 ),
-                                elevation: 8,
+                              );
+                            },
+                            child: Text('See More Details 🧐'),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color.fromARGB(255, 176, 145, 230),
+                              padding: EdgeInsets.symmetric(vertical: 15, horizontal: 50),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
                               ),
+                              elevation: 8,
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                    ),
-                  );
-                } else if (state is WeatherError) {
-                  return Text('Error: ${state.message}');
-                }
-                return Container(); // Default state (initial)
-              },
+                    );
+                  } else if (state is WeatherError) {
+                    return Center(child: Text('Error: ${state.message}'));
+                  }
+                  return Container(); // Default state (initial)
+                },
+              ),
             ),
           ],
         ),
@@ -171,3 +155,4 @@ class WeatherScreen extends StatelessWidget {
     );
   }
 }
+
