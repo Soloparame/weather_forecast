@@ -1,4 +1,3 @@
-// lib/models/weather_model.dart
 
 class WeatherModel {
   final String cityName;
