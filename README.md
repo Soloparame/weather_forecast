@@ -174,9 +174,3 @@ The app follows **SOLID principles** for maintainability and scalability:
 - **Dependency Injection**: The `WeatherApiService` is injected using **Provider**, decoupling the app’s components and making it easier to test.
 
 ---
-
-## Contributing
-
-Feel free to fork the repository, submit issues, and open pull requests. Contributions are welcome!
-
----
