@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'bloc/weather_bloc.dart';
 import 'services/weather_api_service.dart';
-import 'screens/landing_page.dart';  // Import the LandingPage
+import 'screens/landing_page.dart';  
 
 void main() {
   runApp(MyApp());
